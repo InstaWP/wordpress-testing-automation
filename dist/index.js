@@ -8479,7 +8479,7 @@ const github = __nccwpck_require__(5438);
 
 
 async function run() {
-  	console.log('Hello, world!');
+  	//console.log('Hello, world!');
 
   	const GITHUB_TOKEN = core.getInput('GITHUB_TOKEN');
 
