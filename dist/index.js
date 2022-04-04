@@ -8299,14 +8299,6 @@ function wrappy (fn, cb) {
 
 /***/ }),
 
-/***/ 153:
-/***/ ((module) => {
-
-module.exports = eval("require")("dotenv");
-
-
-/***/ }),
-
 /***/ 2877:
 /***/ ((module) => {
 
@@ -8477,8 +8469,8 @@ var __webpack_exports__ = {};
 // This entry need to be wrapped in an IIFE because it need to be isolated against other modules in the chunk.
 (() => {
 
-(__nccwpck_require__(153).config)();
-const fetch = __nccwpck_require__(467);
+// require('dotenv').config();
+// const fetch = require('node-fetch');
 
 const core = __nccwpck_require__(2186);
 const github = __nccwpck_require__(5438);
