@@ -1,0 +1,23 @@
+{
+  "name": "wordpress-testing-automation",
+  "version": "1.0.0",
+  "description": "Automate WordPress product testing in less than a minute.",
+  "main": "index.js",
+  "scripts": {
+  "build": "ncc build src/action.js -o dist",
+  "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/InstaWP/wordpress-testing-automation.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/InstaWP/wordpress-testing-automation/issues"
+  },
+  "homepage": "https://github.com/InstaWP/wordpress-testing-automation#readme",
+  "devDependencies": {
+    "@vercel/ncc": "^0.33.3"
+  }
+}

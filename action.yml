@@ -1,0 +1,15 @@
+name: 'Thank You Action'
+description: 'Say "Thank You" to new pull requests'
+author: 'InstaWP'
+
+inputs:
+  GITHUB_TOKEN:
+    description: 'GitHub token'
+    required: true
+  INSTAWP_TOKEN:
+    description: 'InstaWP API token'
+    required: true
+
+runs:
+  using: 'node12'
+  main: 'dist/index.js'
