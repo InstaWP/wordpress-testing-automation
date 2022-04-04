@@ -8483,10 +8483,18 @@ async function run() {
 
   	const GITHUB_TOKEN = core.getInput('GITHUB_TOKEN');
 
+  	if ( typeof GITHUB_TOKEN !== 'string' ) {
+		throw new Error('Invalid GITHUB_TOKEN: did you forget to set it in your action config?');
+	}
+
 	const octokit = github.getOctokit(GITHUB_TOKEN);
 
 	const { context = {} } = github;
 	const { pull_request } = context.payload;
+
+	if ( !pull_request ) {
+  		throw new Error('Could not find pull request!')
+	};
 
 	await octokit.issues.createComment({
 	  ...context.repo,
@@ -8496,7 +8504,7 @@ async function run() {
 
 }
 
-run();
+run().catch(e => core.setFailed(e.message));
 })();
 
 module.exports = __webpack_exports__;
