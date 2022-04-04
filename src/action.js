@@ -13,6 +13,8 @@ async function run() {
 
   	const GITHUB_TOKEN = core.getInput('GITHUB_TOKEN');
 
+  	console.log(GITHUB_TOKEN);
+
   	if ( typeof GITHUB_TOKEN !== 'string' ) {
 		throw new Error('Invalid GITHUB_TOKEN: did you forget to set it in your action config?');
 	}
