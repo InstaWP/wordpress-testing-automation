@@ -8299,6 +8299,14 @@ function wrappy (fn, cb) {
 
 /***/ }),
 
+/***/ 153:
+/***/ ((module) => {
+
+module.exports = eval("require")("dotenv");
+
+
+/***/ }),
+
 /***/ 2877:
 /***/ ((module) => {
 
@@ -8469,21 +8477,24 @@ var __webpack_exports__ = {};
 // This entry need to be wrapped in an IIFE because it need to be isolated against other modules in the chunk.
 (() => {
 
+(__nccwpck_require__(153).config)();
+const fetch = __nccwpck_require__(467);
+
 const core = __nccwpck_require__(2186);
 const github = __nccwpck_require__(5438);
 
-const GITHUB_TOKEN = core.getInput('GITHUB_TOKEN');
 
-const octokit = github.getOctokit(GITHUB_TOKEN);
-
-const { context = {} } = github;
-const { pull_request } = context.payload;
 
 
 async function run() {
   	console.log('Hello, world!');
 
+  	const GITHUB_TOKEN = core.getInput('GITHUB_TOKEN');
 
+	const octokit = github.getOctokit(GITHUB_TOKEN);
+
+	const { context = {} } = github;
+	const { pull_request } = context.payload;
 
 	await octokit.issues.createComment({
 	  ...context.repo,
