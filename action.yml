@@ -6,9 +6,12 @@ inputs:
   GITHUB_TOKEN:
     description: 'GitHub token'
     required: true
-  message:
-    description: 'Message that gets sent to new pull requests'
-    default: 'Thank you for submitting a pull request! We will try to review this as soon as we can.'
+  INSTAWP_TOKEN:
+    description: 'InstaWP API Token (write)'
+    required: true
+  INSTAWP_TEMPLATE_SLUG:
+      description: 'InstaWP Template Slug'
+      required: true
 
 runs:
   using: 'node12'
