@@ -1,7 +1,7 @@
 {
   "name": "wordpress-testing-automation",
   "version": "1.0.0",
-  "description": "Automate WordPress product testing in less than a minute.",
+  "description": "Automate WordPress testing in less than a minute.",
   "main": "index.js",
   "scripts": {
     "build": "ncc build src/action.js -o dist",
@@ -20,9 +20,8 @@
   "devDependencies": {
     "@actions/core": "^1.6.0",
     "@actions/github": "^5.0.1",
-    "@vercel/ncc": "^0.33.3"
-  },
-  "dependencies": {
+    "@vercel/ncc": "^0.33.3",
     "node-fetch": "^3.2.3"
-  }
+  },
+  "dependencies": {}
 }
