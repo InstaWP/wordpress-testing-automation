@@ -1,5 +1,5 @@
-name: 'Thank You Action'
-description: 'Say "Thank You" to new pull requests'
+name: 'InstaWP WordPress Github Action'
+description: 'Spin WP sites off a template_slug'
 author: 'InstaWP'
 
 inputs:
@@ -7,11 +7,14 @@ inputs:
     description: 'GitHub token'
     required: true
   INSTAWP_TOKEN:
-    description: 'InstaWP API Token (write)'
+    description: 'InstaWP API Token (site:create)'
     required: true
   INSTAWP_TEMPLATE_SLUG:
-      description: 'InstaWP Template Slug'
-      required: true
+    description: 'InstaWP Template Slug'
+    required: true
+  REPO_ID:
+    description: 'InstaWP Repo ID'
+    required: true
 
 runs:
   using: 'node12'

@@ -13,6 +13,8 @@ async function run() {
 
   	const GITHUB_TOKEN = core.getInput('GITHUB_TOKEN');
   	const INSTAWP_TOKEN = core.getInput('INSTAWP_TOKEN');
+  	const INSTAWP_TEMPLATE_SLUG = core.getInput('INSTAWP_TEMPLATE_SLUG');
+  	const REPO_ID = core.getInput('REPO_ID');
 
   	if ( typeof GITHUB_TOKEN !== 'string' ) {
 		throw new Error('Invalid GITHUB_TOKEN: did you forget to set it in your action config?');
@@ -28,11 +30,11 @@ async function run() {
 	};
 
 
-	const url = `https://app.instawp.io/v1/api/sites`
+	const url = `https://s.instawp.io/v1/api/sites`
 
 	console.log(`Creating InstaWP site : ${url}`)
 
-	data = { "pr_num": pull_request.number, "template_slug" : INSTAWP_TEMPLATE_SLUG, "deployment" : true };
+	data = { "pr_num": pull_request.number, "template_slug" : INSTAWP_TEMPLATE_SLUG, "git_deployment" : true, repo_id: REPO_ID };
 
 	console.log(data);
 
@@ -49,6 +51,8 @@ async function run() {
 	const { results } = await response.json();
 	const results_url = results.url;
 	const results_login = results.access_login;
+	
+	console.log(response);
 
 	await octokit.rest.issues.createComment({
 	  ...context.repo,
