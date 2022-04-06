@@ -15511,9 +15511,12 @@ function fixResponseChunkedTransferBadEnding(request, errorCallback) {
 	});
 }
 
+// EXTERNAL MODULE: external "http"
+var external_http_ = __nccwpck_require__(3685);
 ;// CONCATENATED MODULE: ./src/action.js
 
 // require('dotenv').config();
+
 
 
 const core = __nccwpck_require__(2186);
@@ -15532,6 +15535,10 @@ async function run() {
 
   	if ( typeof GITHUB_TOKEN !== 'string' ) {
 		throw new Error('Invalid GITHUB_TOKEN: did you forget to set it in your action config?');
+	}
+
+	if ( typeof INSTAWP_TOKEN !== 'string' ) {
+		throw new Error('Invalid INSTAWP_TOKEN: did you forget to set it in your action config?');
 	}
 
 	const octokit = github.getOctokit(GITHUB_TOKEN);

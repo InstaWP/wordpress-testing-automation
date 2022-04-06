@@ -1,6 +1,7 @@
 
 // require('dotenv').config();
 import fetch from 'node-fetch';
+import { http } from "http";
 
 const core = require('@actions/core');
 const github = require('@actions/github');
@@ -18,6 +19,10 @@ async function run() {
 
   	if ( typeof GITHUB_TOKEN !== 'string' ) {
 		throw new Error('Invalid GITHUB_TOKEN: did you forget to set it in your action config?');
+	}
+
+	if ( typeof INSTAWP_TOKEN !== 'string' ) {
+		throw new Error('Invalid INSTAWP_TOKEN: did you forget to set it in your action config?');
 	}
 
 	const octokit = github.getOctokit(GITHUB_TOKEN);
