@@ -53,10 +53,13 @@ async function run() {
     const response = await fetch(url, config)
 
 	const { results } = await response.json();
+
+	console.log(results);
+	
 	const results_url = results.url;
 	const results_login = results.access_login;
 	
-	console.log(response);
+	
 
 	await octokit.rest.issues.createComment({
 	  ...context.repo,
