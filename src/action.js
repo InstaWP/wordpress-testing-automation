@@ -38,7 +38,7 @@ async function run() {
 
 	console.log(`Creating InstaWP site : ${url}`)
 
-	data = { "pr_num": pull_request.number, "template_slug" : INSTAWP_TEMPLATE_SLUG, "git_deployment" : true, repo_id: REPO_ID };
+	const data = { "pr_num": pull_request.number, "template_slug" : INSTAWP_TEMPLATE_SLUG, "git_deployment" : true, repo_id: REPO_ID };
 
 	console.log(data);
 
