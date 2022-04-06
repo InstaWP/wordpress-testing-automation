@@ -23,5 +23,7 @@
     "@vercel/ncc": "^0.33.3",
     "node-fetch": "^3.2.3"
   },
-  "dependencies": {}
+  "dependencies": {
+    "@types/node": "^17.0.23"
+  }
 }
