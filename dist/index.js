@@ -8548,7 +8548,7 @@ async function run() {
 	};
 
 
-	const url = `https://s.instawp.io/v1/api/sites`
+	const url = `https://s.instawp.io/api/v1/site`
 
 	console.log(`Creating InstaWP site : ${url}`)
 
