@@ -1,7 +1,6 @@
 
 // require('dotenv').config();
 import fetch from 'node-fetch';
-import { http } from "http";
 
 const core = require('@actions/core');
 const github = require('@actions/github');

@@ -15511,12 +15511,9 @@ function fixResponseChunkedTransferBadEnding(request, errorCallback) {
 	});
 }
 
-// EXTERNAL MODULE: external "http"
-var external_http_ = __nccwpck_require__(3685);
 ;// CONCATENATED MODULE: ./src/action.js
 
 // require('dotenv').config();
-
 
 
 const core = __nccwpck_require__(2186);
