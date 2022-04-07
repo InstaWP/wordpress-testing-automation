@@ -1,5 +1,5 @@
 name: 'InstaWP WordPress Github Action'
-description: 'Spin WP sites off a template_slug'
+description: 'WordPress Testing Simplied with InstaWP Templates'
 author: 'InstaWP'
 branding:
   icon: 'zap'  
