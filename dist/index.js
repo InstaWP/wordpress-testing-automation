@@ -8560,7 +8560,7 @@ async function run() {
         method: 'POST',
         headers: {
             'Accept': 'application/json',
-            'Bearer': `Bearer ${INSTAWP_TOKEN}`,
+            'Authorization': `Bearer ${INSTAWP_TOKEN}`,
             'Content-Type': 'application/json',
         },
         body: JSON.stringify(data)
