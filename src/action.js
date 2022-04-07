@@ -53,7 +53,7 @@ async function run() {
     }
     const response = await fetch(url, config)
 
-	const { results } = await response;
+	const results = await response.json();
 
 	console.log(results);
 

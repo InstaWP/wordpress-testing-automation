@@ -8567,7 +8567,7 @@ async function run() {
     }
     const response = await node_fetch__WEBPACK_IMPORTED_MODULE_0___default()(url, config)
 
-	const { results } = await response;
+	const results = await response.json();
 
 	console.log(results);
 
