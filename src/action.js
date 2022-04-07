@@ -55,7 +55,7 @@ async function run() {
 
 	const { results } = await response.json();
 
-	console.log(results);
+	console.log(response);
 
 	const results_url = results.data.site.url;
 	const results_login = results.data.site.hash;
