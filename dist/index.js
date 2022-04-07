@@ -8560,6 +8560,7 @@ async function run() {
         method: 'POST',
         headers: {
             'Accept': 'application/json',
+            'Bearer': `Bearer ${INSTAWP_TOKEN}`,
             'Content-Type': 'application/json',
         },
         body: JSON.stringify(data)
@@ -8569,9 +8570,9 @@ async function run() {
 	const { results } = await response.json();
 
 	console.log(results);
-	
-	const results_url = results.url;
-	const results_login = results.access_login;
+
+	const results_url = results.data.site.url;
+	const results_login = results.data.site.hash;
 	
 	
 
