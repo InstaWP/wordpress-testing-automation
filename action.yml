@@ -1,6 +1,9 @@
 name: 'InstaWP WordPress Github Action'
 description: 'Spin WP sites off a template_slug'
 author: 'InstaWP'
+branding:
+  icon: 'zap'  
+  color: 'green'
 
 inputs:
   GITHUB_TOKEN:
