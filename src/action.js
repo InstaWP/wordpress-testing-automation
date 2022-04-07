@@ -66,7 +66,7 @@ async function run() {
 	await octokit.rest.issues.createComment({
 	  ...context.repo,
 	  issue_number: pull_request.number,
-	  body: `WordPress Instance Deployed.\n\nURL: [${results_url}](${results_url})testing11.us1.instawp.xyz\nMagic Login: [${results_login}](${results_login})`
+	  body: `WordPress Instance Deployed.\n\nURL: [${results_url}](${results_url})\nMagic Login: [${results_login}](${results_login})`
 	});
 
 }
