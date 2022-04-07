@@ -56,7 +56,7 @@ async function run() {
 
 	const results = await response.json();
 
-	console.log(results);
+	// console.log(results);
 
 	const results_url = results.data.link;
 	const results_login = `https://${domain}/wordpress-auto-login?site=${results.data.s_hash}`;
