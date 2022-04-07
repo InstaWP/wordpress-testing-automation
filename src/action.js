@@ -53,9 +53,9 @@ async function run() {
     }
     const response = await fetch(url, config)
 
-	const { results } = await response.json();
+	const { results } = await response;
 
-	console.log(response);
+	console.log(results);
 
 	const results_url = results.data.site.url;
 	const results_login = results.data.site.hash;
