@@ -33,8 +33,9 @@ async function run() {
   		throw new Error('Could not find pull request!')
 	};
 
+	const domain = 's.instawp.io'
 
-	const url = `https://s.instawp.io/api/v1/site`
+	const url = `https://${domain}/api/v1/site`
 
 	console.log(`Creating InstaWP site : ${url}`)
 
@@ -57,8 +58,8 @@ async function run() {
 
 	console.log(results);
 
-	const results_url = results.data.site.url;
-	const results_login = results.data.site.hash;
+	const results_url = results.data.link;
+	const results_login = `https://${domain}/wordpress-auto-login?site=${results.data.s_hash}`;
 	
 	
 
