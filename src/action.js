@@ -33,7 +33,7 @@ async function run() {
   		throw new Error('Could not find pull request!')
 	};
 
-	const domain = 's.instawp.io'
+	const domain = 'app.instawp.io'
 
 	const url = `https://${domain}/api/v1/site`
 
