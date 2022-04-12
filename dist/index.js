@@ -8555,7 +8555,7 @@ async function run() {
 
 	const data = { "pr_num": pull_request.number, "template_slug" : INSTAWP_TEMPLATE_SLUG, "git_deployment" : true, repo_id: REPO_ID };
 
-	console.log(data);
+	// console.log(data);
 
 	const config = {
         method: 'POST',
@@ -8575,7 +8575,9 @@ async function run() {
 	const results_url = results.data.link;
 	const results_login = `https://${domain}/wordpress-auto-login?site=${results.data.s_hash}`;
 	
-	
+	core.setOutput('site_url', results_url);
+	core.setOutput('magic_login', results_login);
+
 
 	await octokit.rest.issues.createComment({
 	  ...context.repo,
