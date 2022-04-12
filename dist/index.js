@@ -8575,7 +8575,7 @@ async function run() {
 	const results_url = results.data.link;
 	const results_login = `https://${domain}/wordpress-auto-login?site=${results.data.s_hash}`;
 	
-	core.setOutput('site_url', results_url);
+	core.setOutput('instawp_url', results_url);
 	core.setOutput('magic_login', results_login);
 
 

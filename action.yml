@@ -19,6 +19,12 @@ inputs:
     description: 'InstaWP Repo ID'
     required: true
 
+outputs:
+  instawp_url:
+    description: "URL of the newly created InstaWP site"
+  magic_login:
+    description: "Automatic Login URL to wp-admin for the new site"
+
 runs:
   using: 'node12'
   main: 'dist/index.js'
