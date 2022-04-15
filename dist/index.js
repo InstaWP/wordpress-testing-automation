@@ -8527,7 +8527,7 @@ async function run() {
 
   	const GITHUB_TOKEN = core.getInput('GITHUB_TOKEN');
   	const INSTAWP_TOKEN = core.getInput('INSTAWP_TOKEN');
-  	const INSTAWP_ACTION = core.getInput('INSTAWP_ACTION');
+  	const INSTAWP_ACTION = core.getInput('INSTAWP_ACTION', { required: false }) || 'create-site-template';
 
   	if ( typeof GITHUB_TOKEN !== 'string' ) {
 		throw new Error('Invalid GITHUB_TOKEN: did you forget to set it in your action config?');
