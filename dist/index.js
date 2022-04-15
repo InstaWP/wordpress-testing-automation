@@ -8597,12 +8597,14 @@ async function run() {
 			const INSTAWP_TEMPLATE_SLUG_DELETE = core.getInput('INSTAWP_TEMPLATE_SLUG');
 			const PR_NUM_DELETE = pull_request.number;
 
+			console.log(REPO_ID_DELETE)
+
 			if ( typeof REPO_ID_DELETE !== 'numeric' ) {
-				throw new Error('Invalid REPO_ID_DELETE: Enter a numeric Repo ID');
+				throw new Error('Invalid REPO_ID: Enter a numeric Repo ID');
 			}
 
 			if ( typeof INSTAWP_TEMPLATE_SLUG_DELETE !== 'string' ) {
-				throw new Error('Invalid INSTAWP_TEMPLATE_SLUG_DELETE: Enter a string template slug');
+				throw new Error('Invalid INSTAWP_TEMPLATE_SLUG: Enter a string template slug');
 			}
 
 
