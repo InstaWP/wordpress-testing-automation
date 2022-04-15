@@ -22,6 +22,9 @@ inputs:
   REPO_ID:
     description: 'InstaWP Repo ID (action: create-site-template)'
     required: false
+  INSTAWP_DOMAIN:
+    description: 'For testing purpose only'
+    required: false
 
 outputs:
   instawp_url:
