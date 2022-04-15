@@ -9,21 +9,26 @@ inputs:
   GITHUB_TOKEN:
     description: 'GitHub token'
     required: true
+  INSTAWP_ACTION:
+    description: 'Action to perform, supported create-site-template & destroy-site'
+    required: true
+    default: 'create-site-template'
   INSTAWP_TOKEN:
     description: 'InstaWP API Token (site:create)'
     required: true
   INSTAWP_TEMPLATE_SLUG:
-    description: 'InstaWP Template Slug'
-    required: true
+    description: 'InstaWP Template Slug (action: create-site-template)'
+    required: false
   REPO_ID:
-    description: 'InstaWP Repo ID'
-    required: true
+    description: 'InstaWP Repo ID (action: create-site-template)'
+    required: false
 
 outputs:
   instawp_url:
     description: "URL of the newly created InstaWP site"
   magic_login:
     description: "Automatic Login URL to wp-admin for the new site"
+
 
 runs:
   using: 'node12'
