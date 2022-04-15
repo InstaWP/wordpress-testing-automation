@@ -8593,7 +8593,7 @@ async function run() {
 			});
 			break;
 		case 'destroy-site':
-			const REPO_ID_DELETE = core.getInput('REPO_ID');
+			const REPO_ID_DELETE = parseInt(core.getInput('REPO_ID'));
 			const INSTAWP_TEMPLATE_SLUG_DELETE = core.getInput('INSTAWP_TEMPLATE_SLUG');
 			const PR_NUM_DELETE = pull_request.number;
 
