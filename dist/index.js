@@ -8597,7 +8597,7 @@ async function run() {
 			const INSTAWP_TEMPLATE_SLUG_DELETE = core.getInput('INSTAWP_TEMPLATE_SLUG');
 			const PR_NUM_DELETE = pull_request.number;
 
-			console.log(REPO_ID_DELETE)
+			console.log(typeof REPO_ID_DELETE)
 
 			if ( typeof REPO_ID_DELETE !== 'number' ) {
 				throw new Error('Invalid REPO_ID: Enter a numeric Repo ID');
