@@ -8599,7 +8599,7 @@ async function run() {
 
 			console.log(REPO_ID_DELETE)
 
-			if ( typeof REPO_ID_DELETE !== 'numeric' ) {
+			if ( typeof REPO_ID_DELETE !== 'number' ) {
 				throw new Error('Invalid REPO_ID: Enter a numeric Repo ID');
 			}
 
