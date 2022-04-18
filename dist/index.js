@@ -8584,7 +8584,37 @@ async function run() {
 			core.setOutput('instawp_url', results_url);
 			core.setOutput('magic_login', results_login);
 
-			// core.exportVariable(`${pull_request.number}-instawp_site_id`, results_site_id);
+			if(!results.data.is_pool) {
+				console.log(`Waiting for the site ${results_url} (${results_site_id}) to be spawned...`)
+
+				const url_check = `https://${domain}/api/v1/site/installation-status/${results_site_id}`;
+				const config_check = {
+			        method: 'GET',
+			        headers: {
+			            'Accept': 'application/json',
+			            'Authorization': `Bearer ${INSTAWP_TOKEN}`,
+			            'Content-Type': 'application/json',
+			        }
+			    }
+
+			    let wait_count = 1;
+
+			    while(wait_count <=2) {
+			    	let response_check = await node_fetch__WEBPACK_IMPORTED_MODULE_0___default()(url_check, config)
+
+					let results_check = await response_check.json();
+					console.log(results_check);
+					break;
+			    }
+
+			    
+
+
+			}
+
+//			stage == 'Git Repositories' && status == "Completed"
+
+
 
 			await octokit.rest.issues.createComment({
 			  ...context.repo,
