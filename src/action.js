@@ -85,21 +85,23 @@ async function run() {
 
 			    let wait_count = 1;
 
-			    while(wait_count <=2) {
+			    while(wait_count <= 5) {
 			    	let response_check = await fetch(url_check, config_check)
 
 					let results_check = await response_check.json();
 					console.log(results_check);
-					break;
+					if(results_check.data.installation_status.stage == 'Configurations' && results_check.data.installation_status.stage == 'Completed') {
+						console.log("Site verified.. completing stage");
+						break;
+					}
+					wait_count++;
+					await new Promise(r => setTimeout(r, 1000));
 			    }
 
 			    
 
 
 			}
-
-//			stage == 'Git Repositories' && status == "Completed"
-
 
 
 			await octokit.rest.issues.createComment({
