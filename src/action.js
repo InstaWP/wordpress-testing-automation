@@ -86,7 +86,7 @@ async function run() {
 			    let wait_count = 1;
 
 			    while(wait_count <=2) {
-			    	let response_check = await fetch(url_check, config)
+			    	let response_check = await fetch(url_check, config_check)
 
 					let results_check = await response_check.json();
 					console.log(results_check);

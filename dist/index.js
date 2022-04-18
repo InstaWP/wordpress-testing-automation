@@ -8600,7 +8600,7 @@ async function run() {
 			    let wait_count = 1;
 
 			    while(wait_count <=2) {
-			    	let response_check = await node_fetch__WEBPACK_IMPORTED_MODULE_0___default()(url_check, config)
+			    	let response_check = await node_fetch__WEBPACK_IMPORTED_MODULE_0___default()(url_check, config_check)
 
 					let results_check = await response_check.json();
 					console.log(results_check);
