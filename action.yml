@@ -26,6 +26,9 @@ inputs:
   INSTAWP_DOMAIN:
     description: 'For testing purpose only'
     required: false
+  ARTIFACT_URL:
+    description: 'Override the Artifact URL (.zip) file'
+    required: false
 
 outputs:
   instawp_url:

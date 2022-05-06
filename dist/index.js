@@ -8552,12 +8552,17 @@ async function run() {
 		case 'create-site-template':
 			const INSTAWP_TEMPLATE_SLUG = core.getInput('INSTAWP_TEMPLATE_SLUG');
 		  	const REPO_ID = core.getInput('REPO_ID');
+		  	const ARTIFACT_URL = core.getInput('ARTIFACT_URL', { required: false }) || false;
 
 		  	const url = `https://${domain}/api/v1/site`
 
 			console.log(`Creating InstaWP site from template ${INSTAWP_TEMPLATE_SLUG}`)
 
-			const data = { "pr_num": pull_request.number, "template_slug" : INSTAWP_TEMPLATE_SLUG, "git_deployment" : true, repo_id: REPO_ID };
+			let data = { "pr_num": pull_request.number, "template_slug" : INSTAWP_TEMPLATE_SLUG, "git_deployment" : true, repo_id: REPO_ID };
+
+			if (ARTIFACT_URL != false) {
+				data['override_url'] = ARTIFACT_URL
+			}
 
 			// console.log(data);
 
@@ -8603,7 +8608,7 @@ async function run() {
 			    	let response_check = await node_fetch__WEBPACK_IMPORTED_MODULE_0___default()(url_check, config_check)
 
 					let results_check = await response_check.json();
-					console.log(results_check);
+					//console.log(results_check);
 					if(results_check.data.installation_status.stage == 'Configurations' && results_check.data.installation_status.stage == 'Completed') {
 						console.log("Site verified.. completing stage");
 						break;
