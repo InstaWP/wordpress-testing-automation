@@ -29,8 +29,9 @@ jobs:
         with:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
           INSTAWP_TOKEN: ${{secrets.INSTAWP_TOKEN}}
-          INSTAWP_TEMPLATE_SLUG: gutenademonew
-          REPO_ID: 123
+          INSTAWP_TEMPLATE_SLUG: gutenademonew //instawp template slug
+          REPO_ID: 123 //instawp repo ID
+          ARTIFACT_URL: https://yoursite.com/url.zip //optional
 ```
 
 - INSTAWP_TOKEN can be obtained from your "API Tokens" screen inside the InstaWP interface. 

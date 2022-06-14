@@ -8533,7 +8533,7 @@ async function run() {
 		throw new Error('Invalid GITHUB_TOKEN: did you forget to set it in your action config?');
 	}
 
-	if ( typeof INSTAWP_TOKEN !== 'string' ) {
+	if ( typeof INSTAWP_TOKEN !== 'string' || !INSTAWP_TOKEN) {
 		throw new Error('Invalid INSTAWP_TOKEN: did you forget to set it in your action config?');
 	}
 
@@ -8543,7 +8543,8 @@ async function run() {
 	const { pull_request } = context.payload;
 
 	if ( !pull_request ) {
-  		throw new Error('Could not find pull request!')
+  		console.log('Could not find a pull request with this run, commenting disabled!')
+  		pull_request = { pr_num: 0 }
 	};
 
 	const domain = core.getInput('INSTAWP_DOMAIN', { required: false }) || 'app.instawp.io'
@@ -8622,12 +8623,14 @@ async function run() {
 
 			}
 
+			if(pull_request.number > 0) {
+				await octokit.rest.issues.createComment({
+				  ...context.repo,
+				  issue_number: pull_request.number,
+				  body: `WordPress Instance Deployed.\n\nURL: [${results_url}](${results_url})\nMagic Login: [${results_login}](${results_login})`
+				});
+			}
 
-			await octokit.rest.issues.createComment({
-			  ...context.repo,
-			  issue_number: pull_request.number,
-			  body: `WordPress Instance Deployed.\n\nURL: [${results_url}](${results_url})\nMagic Login: [${results_login}](${results_login})`
-			});
 			break;
 		case 'destroy-site':
 			const REPO_ID_DELETE = parseInt(core.getInput('REPO_ID'));
@@ -8646,7 +8649,7 @@ async function run() {
 
 
 			const url_delete = `https://${domain}/api/v1/sites-pr`
-			console.log(`Destroying InstaWP site from template ${INSTAWP_TEMPLATE_SLUG_DELETE} & PR ${PR_NUM_DELETE}`)
+			console.log(`Destroying InstaWP site from template ${INSTAWP_TEMPLATE_SLUG_DELETE} & PR ${PR_NUM_DELETE} (0=no PR)`)
 			// console.log(data);
 
 			const data_delete = { "pr_num": PR_NUM_DELETE, "template_slug" : INSTAWP_TEMPLATE_SLUG_DELETE, repo_id: REPO_ID_DELETE };
