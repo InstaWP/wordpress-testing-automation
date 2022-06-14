@@ -8540,11 +8540,11 @@ async function run() {
 	const octokit = github.getOctokit(GITHUB_TOKEN);
 
 	const { context = {} } = github;
-	const { pull_request } = context.payload;
+	let { pull_request } = context.payload;
 
 	if ( !pull_request ) {
   		console.log('Could not find a pull request with this run, commenting disabled!')
-  		pull_request = { pr_num: 0 }
+  		pull_request = { number: 0 }
 	};
 
 	const domain = core.getInput('INSTAWP_DOMAIN', { required: false }) || 'app.instawp.io'
