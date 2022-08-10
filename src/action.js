@@ -114,6 +114,8 @@ async function run() {
 				  per_page: 100
 				});
 
+				console.log( comments );
+
 				const comment = comments.find( comment => comment.body.includes( '<!-- INSTAWP-COMMENT -->' ) );
 
 				if ( undefined === comment ) {
