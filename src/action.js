@@ -104,17 +104,32 @@ async function run() {
 					await new Promise(r => setTimeout(r, 1000));
 			    }
 
-			    
-
-
 			}
 
 			if(pull_request.number > 0) {
-				await octokit.rest.issues.createComment({
+
+				const comments = await octokit.rest.issues.listComments({
 				  ...context.repo,
 				  issue_number: pull_request.number,
-				  body: `WordPress Instance Deployed.\n\nURL: [${results_url}](${results_url})\nMagic Login: [${results_login}](${results_login})`
+				  per_page: 100
 				});
+
+				const comment = comments.find( comment => comment.body.includes( '<!-- INSTAWP-COMMENT -->' ) );
+
+				if ( undefined === comment ) {
+					await octokit.rest.issues.createComment({
+					  ...context.repo,
+					  issue_number: pull_request.number,
+					  body: `<!-- INSTAWP-COMMENT -->\nWordPress Instance Deployed.\n\nURL: [${results_url}](${results_url})\nMagic Login: [${results_login}](${results_login})`
+					});
+				} else {
+					await octokit.rest.issues.updateComment({
+					  ...context.repo,
+					  issue_number: pull_request.number,
+					  comment_id: comment.id,
+					  body: `<!-- INSTAWP-COMMENT -->\nWordPress Instance Deployed.\n\nURL: [${results_url}](${results_url})\nMagic Login: [${results_login}](${results_login})`
+					});
+				}
 			}
 
 			break;
@@ -133,13 +148,11 @@ async function run() {
 				throw new Error('Invalid INSTAWP_TEMPLATE_SLUG: Enter a string template slug');
 			}
 
-
 			const url_delete = `https://${domain}/api/v1/sites-pr`
 			console.log(`Destroying InstaWP site from template ${INSTAWP_TEMPLATE_SLUG_DELETE} & PR ${PR_NUM_DELETE} (0=no PR)`)
 			// console.log(data);
 
 			const data_delete = { "pr_num": PR_NUM_DELETE, "template_slug" : INSTAWP_TEMPLATE_SLUG_DELETE, repo_id: REPO_ID_DELETE };
-
 
 			const config_delete = {
 		        method: 'DELETE',
