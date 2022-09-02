@@ -66,7 +66,15 @@ async function run() {
 
 			const results = await response.json();
 
-			console.log(results);
+			if(results.data == undefined) {
+				var msg = "An error has occurred, please check if you have permissions or limits are not exhausted."
+				if(results.message)
+					msg = msg + ', Server: ' + results.message;
+
+				console.log(msg);
+				
+				return;
+			}
 
 			const results_url = results.data.link;
 			const results_site_id = results.data.site_id;
