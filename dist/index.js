@@ -8617,7 +8617,7 @@ async function run() {
 			    	let response_check = await node_fetch__WEBPACK_IMPORTED_MODULE_0___default()(url_check, config_check)
 
 					let results_check = await response_check.json();
-					console.log(results_check);
+					//console.log(results_check);
 					if(results_check.data.installation_status.status == 'completed') {
 						console.log("Site verified.. completing stage");
 						break;
