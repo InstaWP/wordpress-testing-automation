@@ -87,7 +87,7 @@ async function run() {
 			if(!results.data.is_pool) {
 				console.log(`Waiting for the site ${results_url} (${results_site_id}) to be spawned...`)
 
-				const url_check = `https://${domain}/api/v1/site/installation-status/${results_site_id}`;
+				const url_check = `https://${domain}/api/v1/site/user-installation-status/${results_site_id}`;
 				const config_check = {
 			        method: 'GET',
 			        headers: {
@@ -104,12 +104,12 @@ async function run() {
 
 					let results_check = await response_check.json();
 					console.log(results_check);
-					if(results_check.data.installation_status.stage == 'Configurations' && results_check.data.installation_status.stage == 'Completed') {
+					if(results_check.data.installation_status.status == 'completed') {
 						console.log("Site verified.. completing stage");
 						break;
 					}
 					wait_count++;
-					await new Promise(r => setTimeout(r, 1000));
+					await new Promise(r => setTimeout(r, 3000));
 			    }
 
 			}
