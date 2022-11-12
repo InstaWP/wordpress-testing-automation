@@ -82,16 +82,16 @@ async function run() {
 			const results_site_id = results.data.site_id;
 			const results_login = `https://${domain}/wordpress-auto-login?site=${results.data.s_hash}`;
 
-			const wp_username = results.data.wp.username;
-			const wp_password = results.data.wp.password;
+			//const wp_username = results.data.wp.username;
+			//const wp_password = results.data.wp.password;
 			
 			// core.setOutput('instawp_site_id', results_site_id);
 			core.setOutput('instawp_url', results_url);
 			core.setOutput('iwp_url', results_url);
 			core.setOutput('magic_login', results_login);
 			core.setOutput('iwp_magic_login', results_login);
-			core.setOutput('iwp_wp_username', wp_username);
-			core.setOutput('iwp_wp_password', wp_password);
+			//core.setOutput('iwp_wp_username', wp_username);
+			//core.setOutput('iwp_wp_password', wp_password);
 
 			
 
