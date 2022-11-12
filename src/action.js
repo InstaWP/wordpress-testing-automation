@@ -76,22 +76,20 @@ async function run() {
 				return;
 			}
 
-			console.log(results.data);
+			// console.log(results.data);
 
 			const results_url = results.data.wp_url;
 			const results_site_id = results.data.id;
 			const results_login = `https://${domain}/wordpress-auto-login?site=${results.data.s_hash}`;
 
-			//const wp_username = results.data.wp.username;
-			//const wp_password = results.data.wp.password;
+			
 			
 			// core.setOutput('instawp_site_id', results_site_id);
 			core.setOutput('instawp_url', results_url);
 			core.setOutput('iwp_url', results_url);
 			core.setOutput('magic_login', results_login);
 			core.setOutput('iwp_magic_login', results_login);
-			//core.setOutput('iwp_wp_username', wp_username);
-			//core.setOutput('iwp_wp_password', wp_password);
+			
 
 			
 
@@ -114,11 +112,20 @@ async function run() {
 			    	let response_check = await fetch(url_check, config_check)
 
 					let results_check = await response_check.json();
-					console.log(results_check);
+					// console.log(results_check);
 					if(results_check.data.installation_status.status == 'completed') {
-						console.log("Site verified.. completing stage");
+
+						const wp_username = results_check.data.site.username;
+						const wp_password = results_check.data.site.password;
+
+						core.setOutput('iwp_wp_username', wp_username);
+						core.setOutput('iwp_wp_password', wp_password);
+
+						console.log("Site created.. completing stage");
 						break;
 					}
+
+					console.log("Site creation progress : ", results_check.data.installation_status.percentage_complete)
 					wait_count++;
 					await new Promise(r => setTimeout(r, 3000));
 			    }
