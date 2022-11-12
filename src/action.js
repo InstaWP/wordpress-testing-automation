@@ -78,8 +78,8 @@ async function run() {
 
 			console.log(results.data);
 
-			const results_url = results.data.link;
-			const results_site_id = results.data.site_id;
+			const results_url = results.data.wp_url;
+			const results_site_id = results.data.id;
 			const results_login = `https://${domain}/wordpress-auto-login?site=${results.data.s_hash}`;
 
 			//const wp_username = results.data.wp.username;
