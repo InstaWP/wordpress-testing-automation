@@ -8590,9 +8590,12 @@ async function run() {
 				return;
 			}
 
+			console.log(results.data);
+
 			const results_url = results.data.link;
 			const results_site_id = results.data.site_id;
 			const results_login = `https://${domain}/wordpress-auto-login?site=${results.data.s_hash}`;
+
 			const wp_username = results.data.wp.username;
 			const wp_password = results.data.wp.password;
 			
@@ -8682,7 +8685,7 @@ async function run() {
 			console.log(`Destroying InstaWP site from template ${INSTAWP_TEMPLATE_SLUG_DELETE} & PR ${PR_NUM_DELETE} (0=no PR)`)
 			// console.log(data);
 
-			const data_delete = { "pr_num": PR_NUM_DELETE, "template_slug" : INSTAWP_TEMPLATE_SLUG_DELETE, repo_id: REPO_ID_DELETE };
+			const data_delete = { "pr_num": PR_NUM_DELETE, "template_slug" : INSTAWP_TEMPLATE_SLUG_DELETE, "repo_id": REPO_ID_DELETE };
 
 			const config_delete = {
 		        method: 'DELETE',
