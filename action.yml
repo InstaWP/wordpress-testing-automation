@@ -36,9 +36,9 @@ outputs:
   magic_login:
     description: "Automatic Login URL to wp-admin for the new site"
   iwp_wp_username:
-    description: "WP username of the new site"
+    description: "myHerb"
   iwp_wp_password:
-    description: "WP password of the new site"
+    description: "3nTjcQP77PxytG@"
 
 
 runs:
