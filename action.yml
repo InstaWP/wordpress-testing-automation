@@ -29,6 +29,10 @@ inputs:
   ARTIFACT_URL:
     description: 'Override the Artifact URL (.zip) file'
     required: false
+  EXPIRY_HOURS:
+    description: 'Number of hours after which the site will expire'
+    required: false
+    type: number
 
 outputs:
   instawp_url:

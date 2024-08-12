@@ -1,12 +1,8 @@
-
 // require('dotenv').config();
 import fetch from 'node-fetch';
 
 const core = require('@actions/core');
 const github = require('@actions/github');
-
-
-
 
 async function run() {
   	//console.log('Hello, world!');
@@ -40,6 +36,7 @@ async function run() {
 			const INSTAWP_TEMPLATE_SLUG = core.getInput('INSTAWP_TEMPLATE_SLUG');
 		  	const REPO_ID = core.getInput('REPO_ID');
 		  	const ARTIFACT_URL = core.getInput('ARTIFACT_URL', { required: false }) || false;
+		  	const EXPIRY_HOURS = core.getInput('EXPIRY_HOURS', { required: false }) || null;
 
 		  	const url = `https://${domain}/api/v1/site`
 
@@ -49,6 +46,10 @@ async function run() {
 
 			if (ARTIFACT_URL != false) {
 				data['override_url'] = ARTIFACT_URL
+			}
+
+			if (EXPIRY_HOURS !== null) {
+				data['expiry_hours'] = parseInt(EXPIRY_HOURS);
 			}
 
 			// console.log(data);
