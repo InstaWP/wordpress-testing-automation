@@ -29,6 +29,7 @@ jobs:
         with:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
           INSTAWP_TOKEN: ${{secrets.INSTAWP_TOKEN}}
+          EXPIRY_HOURS: 24 //optional
           INSTAWP_TEMPLATE_SLUG: gutenademonew //instawp template slug
           REPO_ID: 123 //instawp repo ID
           ARTIFACT_URL: https://yoursite.com/url.zip //optional
@@ -37,3 +38,9 @@ jobs:
 - INSTAWP_TOKEN can be obtained from your "API Tokens" screen inside the InstaWP interface. 
 - INSTAWP_TEMPLATE_SLUG is shown on the "Templates" screen. 
 - REPO_ID is shown in the "Deployment" screen.
+
+
+# Changelog
+
+- 1.0.1 - Added support for expiry hours
+- 1.0.0 - Initial release
