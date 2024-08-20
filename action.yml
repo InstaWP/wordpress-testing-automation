@@ -1,5 +1,5 @@
-name: 'InstaWP WordPress Github Action'
-description: 'WordPress Testing Simplied with InstaWP Templates'
+name: 'InstaWP WordPress Automation for Github'
+description: 'WordPress Automation & QA - Simplied with InstaWP'
 author: 'InstaWP'
 branding:
   icon: 'zap'  
