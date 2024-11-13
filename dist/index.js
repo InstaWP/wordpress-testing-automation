@@ -33823,7 +33823,7 @@ async function run() {
 		  	const ARTIFACT_URL = core.getInput('ARTIFACT_URL', { required: false }) || false;
 		  	const EXPIRY_HOURS = core.getInput('EXPIRY_HOURS', { required: false }) || null;
 
-		  	const url = `https://${domain}/api/v1/site`
+		  	const url = `https://${domain}/api/v2/sites/git`
 
 			console.log(`Creating InstaWP site from template ${INSTAWP_TEMPLATE_SLUG}`)
 

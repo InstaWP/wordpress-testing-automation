@@ -43,5 +43,6 @@ jobs:
 
 # Changelog
 
+- 1.0.2 - Updated to use the new InstaWP API v2 and updated the Node version to 16
 - 1.0.1 - Added support for expiry hours
 - 1.0.0 - Initial release

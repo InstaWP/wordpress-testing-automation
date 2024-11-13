@@ -1,6 +1,6 @@
 {
   "name": "wordpress-testing-automation",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Automate WordPress testing in less than a minute.",
   "main": "index.js",
   "scripts": {
