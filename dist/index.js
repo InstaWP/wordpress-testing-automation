@@ -33852,7 +33852,7 @@ async function run() {
 
 			const results = await response.json();
 
-			if (!results.data) {
+			if (results.status == false) {
 				let msg = "An error has occurred: Please check if you have permissions or limits might have been exhausted.";
 				if (results.message) {
 					msg += ', Server: ' + results.message;
