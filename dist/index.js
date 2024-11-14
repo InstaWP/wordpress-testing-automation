@@ -33852,17 +33852,16 @@ async function run() {
 
 			const results = await response.json();
 
-			if(results.data == undefined) {
-				var msg = "An error has occurred: Please check if you have permissions or limits might have been exhausted."
-				if(results.message)
-					msg = msg + ', Server: ' + results.message;
-
+			if (!results.data) {
+				let msg = "An error has occurred: Please check if you have permissions or limits might have been exhausted.";
+				if (results.message) {
+					msg += ', Server: ' + results.message;
+				}
 				console.log(msg);
-				
 				return;
 			}
 
-			// console.log(results.data);
+			console.log(results);
 
 			const results_url = results.data.wp_url;
 			const results_site_id = results.data.id;
@@ -33875,34 +33874,29 @@ async function run() {
 			core.setOutput('iwp_url', results_url);
 			core.setOutput('magic_login', results_login);
 			core.setOutput('iwp_magic_login', results_login);
-			
 
-			
-
-			if(!results.data.is_pool) {
-				console.log(`Waiting for the site ${results_url} (${results_site_id}) to be spawned...`)
+			if (!results.data.is_pool) {
+				console.log(`Waiting for the site ${results_url} (${results_site_id}) to be spawned...`);
 
 				const url_check = `https://${domain}/api/v1/site/user-installation-status/${results_site_id}`;
 				const config_check = {
-			        method: 'GET',
-			        headers: {
-			            'Accept': 'application/json',
-			            'Authorization': `Bearer ${INSTAWP_TOKEN}`,
-			            'Content-Type': 'application/json',
-			        }
-			    }
+					method: 'GET',
+					headers: {
+						'Accept': 'application/json',
+						'Authorization': `Bearer ${INSTAWP_TOKEN}`,
+						'Content-Type': 'application/json',
+					}
+				};
 
-			    let wait_count = 1;
+				let wait_count = 1;
 
-			    while(wait_count <= 25) {
-			    	let response_check = await node_fetch__WEBPACK_IMPORTED_MODULE_0___default()(url_check, config_check)
-
+				while (wait_count <= 25) {
+					let response_check = await node_fetch__WEBPACK_IMPORTED_MODULE_0___default()(url_check, config_check);
 					let results_check = await response_check.json();
-					// console.log(results_check);
-					if(results_check.data.installation_status.status == 'completed') {
 
-						const wp_username = results_check.data.site.username;
-						const wp_password = results_check.data.site.password;
+					if (results_check.data.installation_status.status === 'completed') {
+						const wp_username = results_check.data.wp_username;
+						const wp_password = results_check.data.wp_password;
 
 						core.setOutput('iwp_wp_username', wp_username);
 						core.setOutput('iwp_wp_password', wp_password);
@@ -33911,11 +33905,10 @@ async function run() {
 						break;
 					}
 
-					console.log("Site creation progress : ", results_check.data.installation_status.percentage_complete)
+					console.log("Site creation progress : ", results_check.data.installation_status.percentage_complete);
 					wait_count++;
 					await new Promise(r => setTimeout(r, 3000));
-			    }
-
+				}
 			}
 
 			if(pull_request.number > 0) {
