@@ -1,5 +1,5 @@
 name: 'InstaWP WordPress Automation for Github'
-description: 'WordPress Automation & QA - Simplied with InstaWP'
+description: 'WordPress Automation & QA - Simplified with InstaWP'
 author: 'InstaWP'
 branding:
   icon: 'zap'  
@@ -18,6 +18,9 @@ inputs:
     required: true
   INSTAWP_TEMPLATE_SLUG:
     description: 'InstaWP Template Slug (action: create-site-template)'
+    required: false
+  INSTAWP_SNAPSHOT_SLUG:
+    description: 'InstaWP Snapshot Slug - alias for INSTAWP_TEMPLATE_SLUG (action: create-site-template)'
     required: false
   REPO_ID:
     description: 'InstaWP Repo ID (action: create-site-template)'

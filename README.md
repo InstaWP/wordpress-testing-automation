@@ -36,7 +36,7 @@ jobs:
 ```
 
 - INSTAWP_TOKEN can be obtained from your "API Tokens" screen inside the InstaWP interface. 
-- INSTAWP_TEMPLATE_SLUG is shown on the "Templates" screen. 
+- INSTAWP_TEMPLATE_SLUG is shown on the "Templates" screen. You can also use INSTAWP_SNAPSHOT_SLUG as an alias.
 - REPO_ID is shown in the "Deployment" screen.
 - EXPIRY_HOURS is the number of hours the site will be active. 
 - ARTIFACT_URL is the URL of the artifact to download. This is useful if you have a custom build process and generated a zip file, you can use this input to specify the URL of the zip file.

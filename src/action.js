@@ -33,7 +33,8 @@ async function run() {
 
 	switch(INSTAWP_ACTION) {
 		case 'create-site-template':
-			const INSTAWP_TEMPLATE_SLUG = core.getInput('INSTAWP_TEMPLATE_SLUG');
+			// Support both INSTAWP_TEMPLATE_SLUG and INSTAWP_SNAPSHOT_SLUG (as an alias)
+			const INSTAWP_TEMPLATE_SLUG = core.getInput('INSTAWP_TEMPLATE_SLUG') || core.getInput('INSTAWP_SNAPSHOT_SLUG');
 		  	const REPO_ID = core.getInput('REPO_ID');
 		  	const ARTIFACT_URL = core.getInput('ARTIFACT_URL', { required: false }) || false;
 		  	const EXPIRY_HOURS = core.getInput('EXPIRY_HOURS', { required: false }) || null;
@@ -155,7 +156,8 @@ async function run() {
 			break;
 		case 'destroy-site':
 			const REPO_ID_DELETE = parseInt(core.getInput('REPO_ID'));
-			const INSTAWP_TEMPLATE_SLUG_DELETE = core.getInput('INSTAWP_TEMPLATE_SLUG');
+			// Support both INSTAWP_TEMPLATE_SLUG and INSTAWP_SNAPSHOT_SLUG (as an alias)
+			const INSTAWP_TEMPLATE_SLUG_DELETE = core.getInput('INSTAWP_TEMPLATE_SLUG') || core.getInput('INSTAWP_SNAPSHOT_SLUG');
 			const PR_NUM_DELETE = pull_request.number;
 
 			console.log(typeof REPO_ID_DELETE)
@@ -165,7 +167,7 @@ async function run() {
 			}
 
 			if ( typeof INSTAWP_TEMPLATE_SLUG_DELETE !== 'string' ) {
-				throw new Error('Invalid INSTAWP_TEMPLATE_SLUG: Enter a string template slug');
+				throw new Error('Invalid INSTAWP_TEMPLATE_SLUG/INSTAWP_SNAPSHOT_SLUG: Enter a string template or snapshot slug');
 			}
 
 			const url_delete = `https://${domain}/api/v1/sites-pr`
