@@ -3,6 +3,70 @@ import fetch from 'node-fetch';
 
 const core = require('@actions/core');
 const github = require('@actions/github');
+const FormData = require('form-data');
+
+// Helper function to detect if URL is a GitHub artifact URL
+function isGitHubArtifactUrl(url) {
+	if (!url || typeof url !== 'string') return false;
+	return url.includes('github.com') && url.includes('artifacts');
+}
+
+// Helper function to extract artifact ID and repo info from GitHub artifact URL
+function parseGitHubArtifactUrl(url) {
+	try {
+		// GitHub artifact URLs typically look like:
+		// https://github.com/owner/repo/actions/runs/123456/artifacts/789012
+		const urlObj = new URL(url);
+		const pathParts = urlObj.pathname.split('/');
+		
+		if (pathParts.length >= 7 && pathParts[4] === 'actions' && pathParts[5] === 'runs' && pathParts[7] === 'artifacts') {
+			return {
+				owner: pathParts[1],
+				repo: pathParts[2],
+				run_id: pathParts[6],
+				artifact_id: pathParts[8]
+			};
+		}
+		
+		// Also support direct artifact URLs from actions/upload-artifact output
+		// These might be in format: https://api.github.com/repos/owner/repo/actions/artifacts/123456/zip
+		if (urlObj.hostname === 'api.github.com' && pathParts.includes('artifacts')) {
+			const artifactIndex = pathParts.indexOf('artifacts');
+			if (artifactIndex > 0 && pathParts[artifactIndex + 1]) {
+				return {
+					owner: pathParts[2],
+					repo: pathParts[3],
+					artifact_id: pathParts[artifactIndex + 1]
+				};
+			}
+		}
+		
+		return null;
+	} catch (error) {
+		console.log('Error parsing GitHub artifact URL:', error.message);
+		return null;
+	}
+}
+
+// Helper function to download GitHub artifact using Octokit
+async function downloadGitHubArtifact(octokit, artifactInfo) {
+	try {
+		console.log(`Downloading GitHub artifact ${artifactInfo.artifact_id}...`);
+		
+		const response = await octokit.rest.actions.downloadArtifact({
+			owner: artifactInfo.owner,
+			repo: artifactInfo.repo,
+			artifact_id: parseInt(artifactInfo.artifact_id),
+			archive_format: 'zip'
+		});
+		
+		console.log('GitHub artifact downloaded successfully');
+		return Buffer.from(response.data);
+	} catch (error) {
+		console.error('Error downloading GitHub artifact:', error.message);
+		throw new Error(`Failed to download GitHub artifact: ${error.message}`);
+	}
+}
 
 async function run() {
   	//console.log('Hello, world!');
@@ -44,26 +108,73 @@ async function run() {
 			console.log(`Creating InstaWP site from template ${INSTAWP_TEMPLATE_SLUG}`)
 
 			let data = { "pr_num": pull_request.number, "template_slug" : INSTAWP_TEMPLATE_SLUG, "git_deployment" : true, repo_id: REPO_ID };
+			let config;
+			let artifactBuffer = null;
 
-			if (ARTIFACT_URL != false) {
-				data['override_url'] = ARTIFACT_URL
+			// Check if ARTIFACT_URL is a GitHub artifact
+			if (ARTIFACT_URL && isGitHubArtifactUrl(ARTIFACT_URL)) {
+				console.log('Detected GitHub artifact URL, downloading artifact...');
+				
+				const artifactInfo = parseGitHubArtifactUrl(ARTIFACT_URL);
+				if (!artifactInfo) {
+					throw new Error('Unable to parse GitHub artifact URL. Please ensure the URL is valid.');
+				}
+
+				try {
+					artifactBuffer = await downloadGitHubArtifact(octokit, artifactInfo);
+					console.log(`Downloaded artifact, size: ${artifactBuffer.length} bytes`);
+				} catch (error) {
+					console.error('Failed to download GitHub artifact:', error.message);
+					throw error;
+				}
 			}
 
 			if (EXPIRY_HOURS !== null) {
 				data['expiry_hours'] = parseInt(EXPIRY_HOURS);
 			}
 
-			// console.log(data);
+			// If we have an artifact buffer, send as form data, otherwise use JSON
+			if (artifactBuffer) {
+				// Create form data with the artifact
+				const formData = new FormData();
+				
+				// Add all the data fields to form data
+				Object.keys(data).forEach(key => {
+					formData.append(key, data[key]);
+				});
+				
+				// Add the artifact file
+				formData.append('override_file', artifactBuffer, {
+					filename: 'artifact.zip',
+					contentType: 'application/zip'
+				});
 
-			const config = {
-		        method: 'POST',
-		        headers: {
-		            'Accept': 'application/json',
-		            'Authorization': `Bearer ${INSTAWP_TOKEN}`,
-		            'Content-Type': 'application/json',
-		        },
-		        body: JSON.stringify(data)
-		    }
+				config = {
+					method: 'POST',
+					headers: {
+						'Accept': 'application/json',
+						'Authorization': `Bearer ${INSTAWP_TOKEN}`,
+						...formData.getHeaders()
+					},
+					body: formData
+				};
+			} else {
+				// Regular JSON request
+				if (ARTIFACT_URL != false) {
+					data['override_url'] = ARTIFACT_URL
+				}
+
+				config = {
+					method: 'POST',
+					headers: {
+						'Accept': 'application/json',
+						'Authorization': `Bearer ${INSTAWP_TOKEN}`,
+						'Content-Type': 'application/json',
+					},
+					body: JSON.stringify(data)
+				};
+			}
+
 		    const response = await fetch(url, config)
 
 			const results = await response.json();
